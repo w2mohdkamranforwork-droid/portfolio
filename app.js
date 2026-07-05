@@ -491,49 +491,54 @@ scrollBtn.addEventListener('click', (e) => {
     });
 });
 
-if (whatsappBtn) {
-    whatsappBtn.addEventListener("click", function(e) {
-        // 1. ABSOLUTELY STOP the form from reloading the page
-        e.preventDefault();
-        e.stopPropagation();
+// Wait for the DOM to be safe and loaded
+document.addEventListener("DOMContentLoaded", () => {
+    const whatsappBtn = document.getElementById("submit-whatsapp");
 
-        // 2. Direct inputs lookup
-        const nameField = document.getElementById("name");
-        const emailField = document.getElementById("email");
-        const msgField = document.getElementById("msg");
+    if (whatsappBtn) {
+        whatsappBtn.addEventListener("click", function(e) {
+            // 1. Halt browser layout form reloads
+            e.preventDefault();
+            e.stopPropagation();
 
-        if (!nameField || !emailField || !msgField) {
-            alert("Error: Form input fields could not be found in the HTML DOM.");
-            return;
-        }
+            // 2. Direct input values extraction matching your exact HTML layout
+            const nameField = document.getElementById("name");
+            const emailField = document.getElementById("email");
+            const msgField = document.getElementById("msg");
 
-        const name = nameField.value.trim();
-        const email = emailField.value.trim();
-        const msg = msgField.value.trim();
+            if (!nameField || !emailField || !msgField) {
+                console.error("Critical: Layout form fields are missing from the DOM ecosystem.");
+                return;
+            }
 
-        if (name === "" || email === "" || msg === "") {
-            // Force the browser to show native validation hints
-            const formEngine = document.getElementById("contact-form-engine");
-            if (formEngine) formEngine.reportValidity();
-            return;
-        }
+            const name = nameField.value.trim();
+            const email = emailField.value.trim();
+            const msg = msgField.value.trim();
 
-        // 3. Compile message parameters 
-        const textMessage = `*SYSTEM TRANSMISSION INTENT*\n\n` + 
-                            `*Name:* ${name}\n` + 
-                            `*Email:* ${email}\n\n` + 
-                            `*Scope Specifications:*\n${msg}`;
-        
-        const encodedPayload = encodeURIComponent(textMessage);
-        
-        // 4. Hardcoded clean routing destination (No external variable dependencies)
-        const targetUrl = "https://wa.me/919820360057?text=" + encodedPayload;
-        
-        console.log("Forcing layout execution destination:", targetUrl);
+            // 3. Form input validation check
+            if (name === "" || email === "" || msg === "") {
+                const formEngine = document.getElementById("contact-form-engine");
+                if (formEngine) formEngine.reportValidity();
+                return;
+            }
 
-        // 5. Direct window location override
-        window.location.href = targetUrl;
-    });
-} else {
-    console.error("Critical: 'submit-whatsapp' button element missing from current page layout.");
-}
+            // 4. Compile message data string with clean Markdown layout
+            const textMessage = `*SYSTEM TRANSMISSION INTENT*\n\n` + 
+                                `*Name:* ${name}\n` + 
+                                `*Email:* ${email}\n\n` + 
+                                `*Scope Specifications:*\n${msg}`;
+            
+            const encodedPayload = encodeURIComponent(textMessage);
+            
+            // 5. Target routing assignment
+            const targetUrl = "https://wa.me/919820360057?text=" + encodedPayload;
+            
+            console.log("Routing payload execution destination to:", targetUrl);
+
+            // 6. Direct browser window location transfer
+            window.location.href = targetUrl;
+        });
+    } else {
+        console.warn("System Notice: WhatsApp anchor element ('submit-whatsapp') missing from active view.");
+    }
+});
