@@ -499,7 +499,6 @@ if (whatsappBtn) {
             return;
         }
 
-        // 1. Format and encode the message payload immediately
         const textMessage = `*SYSTEM TRANSMISSION INTENT*\n\n` + 
                             `*Name:* ${check.data.name}\n` + 
                             `*Email:* ${check.data.email}\n\n` + 
@@ -508,18 +507,9 @@ if (whatsappBtn) {
         const encodedPayload = encodeURIComponent(textMessage);
         const targetUrl = `https://wa.me/${developerPhone}?text=${encodedPayload}`;
         
-        // 2. DISPATCH IMMEDIATELY (Browser will allow this because it's directly inside the click event)
-        const newTab = window.open(targetUrl, '_blank');
-
-        // 3. Fallback check if a browser still manages to block it
-        if (!newTab || newTab.closed || typeof newTab.closed == 'undefined') {
-            alert("Popup blocker detected. Please allow popups for this site to send the WhatsApp message.");
-        }
-
-        // 4. Run your background logs and UI HUD notification right after
-        pipelineExecution(check.data, () => {
-            // Your original callback reset the form, keep that cleanup logic here
-            if (form) form.reset();
-        });
+        // --- THE BULLETPROOF FIX ---
+        // Instead of window.open, change the current window location.
+        // This is 100% immune to popup blockers.
+        window.location.href = targetUrl;
     });
 }
