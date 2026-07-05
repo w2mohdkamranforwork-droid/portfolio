@@ -492,13 +492,17 @@ scrollBtn.addEventListener('click', (e) => {
 });
 
 if (whatsappBtn) {
-    whatsappBtn.addEventListener("click", () => {
+    whatsappBtn.addEventListener("click", (e) => {
+        // 1. CRITICAL: Stop the HTML form from refreshing the page and killing the redirect
+        e.preventDefault(); 
+
         const check = checkFormValidity();
         if (!check.isValid) {
             if (form) form.reportValidity();
             return;
         }
 
+        // 2. Clean text compiling for WhatsApp formatting
         const textMessage = `*SYSTEM TRANSMISSION INTENT*\n\n` + 
                             `*Name:* ${check.data.name}\n` + 
                             `*Email:* ${check.data.email}\n\n` + 
@@ -507,9 +511,23 @@ if (whatsappBtn) {
         const encodedPayload = encodeURIComponent(textMessage);
         const targetUrl = `https://wa.me/${developerPhone}?text=${encodedPayload}`;
         
-        // --- THE BULLETPROOF FIX ---
-        // Instead of window.open, change the current window location.
-        // This is 100% immune to popup blockers.
+        console.log("Redirecting system target layout to:", targetUrl);
+
+        // 3. Sync logs in local storage before changing location
+        try {
+            let transmissionLogs = [];
+            const localData = localStorage.getItem("system_transmission_logs");
+            if (localData) {
+                transmissionLogs = JSON.parse(localData);
+            }
+            check.data.timestamp = new Date().toISOString();
+            transmissionLogs.push(check.data);
+            localStorage.setItem("system_transmission_logs", JSON.stringify(transmissionLogs));
+        } catch (err) {
+            console.error("Storage routine bypassed during critical transfer:", err);
+        }
+
+        // 4. Fire direct, unblockable browser routing
         window.location.href = targetUrl;
     });
 }
