@@ -491,56 +491,49 @@ scrollBtn.addEventListener('click', (e) => {
     });
 });
 
-// Ensure the WhatsApp button element exists before attaching the listener
 if (whatsappBtn) {
-    whatsappBtn.addEventListener("click", (e) => {
-        // 1. Prevents the form from refreshing the page and destroying the redirect pipeline
-        e.preventDefault(); 
+    whatsappBtn.addEventListener("click", function(e) {
+        // 1. ABSOLUTELY STOP the form from reloading the page
+        e.preventDefault();
+        e.stopPropagation();
 
-        // 2. Validate form fields
-        const check = checkFormValidity();
-        if (!check.isValid) {
-            if (form) form.reportValidity();
+        // 2. Direct inputs lookup
+        const nameField = document.getElementById("name");
+        const emailField = document.getElementById("email");
+        const msgField = document.getElementById("msg");
+
+        if (!nameField || !emailField || !msgField) {
+            alert("Error: Form input fields could not be found in the HTML DOM.");
             return;
         }
 
-        // 3. Compile clean Markdown layout strings for WhatsApp text payload
+        const name = nameField.value.trim();
+        const email = emailField.value.trim();
+        const msg = msgField.value.trim();
+
+        if (name === "" || email === "" || msg === "") {
+            // Force the browser to show native validation hints
+            const formEngine = document.getElementById("contact-form-engine");
+            if (formEngine) formEngine.reportValidity();
+            return;
+        }
+
+        // 3. Compile message parameters 
         const textMessage = `*SYSTEM TRANSMISSION INTENT*\n\n` + 
-                            `*Name:* ${check.data.name}\n` + 
-                            `*Email:* ${check.data.email}\n\n` + 
-                            `*Scope Specifications:*\n${check.data.msg}`;
+                            `*Name:* ${name}\n` + 
+                            `*Email:* ${email}\n\n` + 
+                            `*Scope Specifications:*\n${msg}`;
         
         const encodedPayload = encodeURIComponent(textMessage);
-        const targetUrl = `https://wa.me/${developerPhone}?text=${encodedPayload}`;
         
-        console.log("Redirecting system target layout to:", targetUrl);
+        // 4. Hardcoded clean routing destination (No external variable dependencies)
+        const targetUrl = "https://wa.me/919820360057?text=" + encodedPayload;
+        
+        console.log("Forcing layout execution destination:", targetUrl);
 
-        // 4. Synchronize data payload into local storage ledger
-        try {
-            let transmissionLogs = [];
-            const localData = localStorage.getItem("system_transmission_logs");
-            if (localData) {
-                transmissionLogs = JSON.parse(localData);
-            }
-            check.data.timestamp = new Date().toISOString();
-            transmissionLogs.push(check.data);
-            localStorage.setItem("system_transmission_logs", JSON.stringify(transmissionLogs));
-        } catch (err) {
-            console.error("Storage routine bypassed during critical transfer:", err);
-        }
-
-        // 5. Trigger the confirmation popup cleanly if it exists in the DOM
-        if (popup) {
-            popup.classList.add("active"); // Fixes lines 460/462 safely
-            // If your layout uses display instead of classes, fallback: popup.style.display = "flex";
-        }
-
-        // 6. Direct browser routing configuration (Immune to browser popup blockers)
+        // 5. Direct window location override
         window.location.href = targetUrl;
-
-        // 7. Cleanup form inputs post-execution
-        if (form) form.reset();
     });
 } else {
-    console.warn("System Notice: WhatsApp button anchor element ('submit-whatsapp') missing from current view layout.");
+    console.error("Critical: 'submit-whatsapp' button element missing from current page layout.");
 }
