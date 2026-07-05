@@ -491,18 +491,20 @@ scrollBtn.addEventListener('click', (e) => {
     });
 });
 
+// Ensure the WhatsApp button element exists before attaching the listener
 if (whatsappBtn) {
     whatsappBtn.addEventListener("click", (e) => {
-        // 1. CRITICAL: Stop the HTML form from refreshing the page and killing the redirect
+        // 1. Prevents the form from refreshing the page and destroying the redirect pipeline
         e.preventDefault(); 
 
+        // 2. Validate form fields
         const check = checkFormValidity();
         if (!check.isValid) {
             if (form) form.reportValidity();
             return;
         }
 
-        // 2. Clean text compiling for WhatsApp formatting
+        // 3. Compile clean Markdown layout strings for WhatsApp text payload
         const textMessage = `*SYSTEM TRANSMISSION INTENT*\n\n` + 
                             `*Name:* ${check.data.name}\n` + 
                             `*Email:* ${check.data.email}\n\n` + 
@@ -513,7 +515,7 @@ if (whatsappBtn) {
         
         console.log("Redirecting system target layout to:", targetUrl);
 
-        // 3. Sync logs in local storage before changing location
+        // 4. Synchronize data payload into local storage ledger
         try {
             let transmissionLogs = [];
             const localData = localStorage.getItem("system_transmission_logs");
@@ -527,7 +529,18 @@ if (whatsappBtn) {
             console.error("Storage routine bypassed during critical transfer:", err);
         }
 
-        // 4. Fire direct, unblockable browser routing
+        // 5. Trigger the confirmation popup cleanly if it exists in the DOM
+        if (popup) {
+            popup.classList.add("active"); // Fixes lines 460/462 safely
+            // If your layout uses display instead of classes, fallback: popup.style.display = "flex";
+        }
+
+        // 6. Direct browser routing configuration (Immune to browser popup blockers)
         window.location.href = targetUrl;
+
+        // 7. Cleanup form inputs post-execution
+        if (form) form.reset();
     });
+} else {
+    console.warn("System Notice: WhatsApp button anchor element ('submit-whatsapp') missing from current view layout.");
 }
