@@ -1982,3 +1982,44 @@ nav {
     top: 0 !important;
     z-index: 999999 !important;
 }
+
+.origin-nav-btn {
+    position: fixed;
+    bottom: 30px; /* Adjust placement as needed */
+    right: 30px;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 0;           /* Hidden by default at the origin */
+    visibility: hidden;   /* Keeps it unclickable when invisible */
+    z-index: 9999;
+}
+
+/* This class will be applied when the user scrolls down */
+.origin-nav-btn.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#scroll-to-origin {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    width: 45px !important;  /* Ensure it has a physical size */
+    height: 45px !important; /* Ensure it has a physical size */
+    z-index: 999999 !important; /* Forces it to the absolute top layer */
+    
+    /* Smooth transition */
+    transition: opacity 0.3s ease, visibility 0.3s ease !important;
+    
+    /* Start hidden at the top */
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* This must override the hidden properties completely */
+#scroll-to-origin.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important; /* Ensures the SVG inside renders nicely */
+    align-items: center;
+    justify-content: center;
+}

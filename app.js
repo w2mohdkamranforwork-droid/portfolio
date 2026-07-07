@@ -58,8 +58,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     nav.addEventListener('mouseleave', resetTimer);
+const scrollToOriginBtn = document.getElementById('scroll-to-origin');
 
+    if (!scrollToOriginBtn) return;
+
+    function toggleOriginButton() {
+        // Checks standard scroll, HTML element scroll, and body element scroll
+        const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+
+        // Diagnostic log: Open your browser console (F12) to see if this number changes when you scroll
+        console.log("Current Scroll Position:", scrollPosition);
+
+        if (scrollPosition > 100) { 
+            scrollToOriginBtn.classList.add('visible');
+        } else {
+            scrollToOriginBtn.classList.remove('visible');
+        }
+    }
+
+    // Attach listener to both window and the document body just in case
+    window.addEventListener('scroll', toggleOriginButton);
+    document.addEventListener('scroll', toggleOriginButton);
+
+    // Initial check
+    toggleOriginButton();
     resetTimer();
+    
     initWebGLBackground();
     initMagneticComponents();
     initDecryptionMatrix();
