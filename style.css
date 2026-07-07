@@ -1963,3 +1963,17 @@ a.meta-val:hover {
 a.meta-val:hover {
     color: #00d2ff; /* Turns neon blue when interacting with actual numbers/links */
 }
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    z-index: 1000; /* Ensures it stays on top */
+}
+
+/* This class will be toggled via JavaScript */
+nav.nav-hidden {
+    transform: translateY(-100%);
+    opacity: 0;
+}
