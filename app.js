@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function resetTimer() {
         clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(hideNavbar, 4000);
+        hideTimeout = setTimeout(hideNavbar, 2000);
     }
 
     // Show when mouse moves
