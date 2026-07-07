@@ -2023,3 +2023,64 @@ nav {
     align-items: center;
     justify-content: center;
 }
+
+/* 1. The main container that safely anchors both buttons */
+/* 1. The main container that safely stacks both buttons */
+.floating-btn-group {
+    position: fixed !important;
+    bottom: 30px !important;
+    right: 30px !important;
+    display: flex !important;
+    flex-direction: column !important; /* Vertically stacks them */
+    gap: 14px !important;              /* Clean gap so they never overlap */
+    align-items: center !important;
+    z-index: 999999 !important;        /* Forces them on top of everything */
+}
+
+/* 2. Base structural styles for both buttons */
+.whatsapp-btn, #scroll-to-origin {
+    position: static !important;       /* Removes conflicting fixed screen calculations */
+    width: 50px !important;
+    height: 50px !important;
+    border-radius: 50% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18) !important;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease !important;
+}
+
+/* 3. WhatsApp Button Styling (Kept as standard green) */
+.whatsapp-btn {
+    background-color: #25D366 !important;
+    color: white !important;
+}
+.whatsapp-btn:hover {
+    transform: scale(1.1) !important;
+    background-color: #20ba5a !important;
+}
+
+/* 4. Scroll to Origin - Hidden State (Blue & Purple Gradient) */
+#scroll-to-origin {
+    /* Vivid Blue to Royal Purple Gradient */
+    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%) !important; 
+    color: #ffffff !important; /* White arrow to stand out on the gradient */
+    
+    /* Safely hidden by default at the very top */
+    opacity: 0 !important;
+    visibility: hidden !important;
+    display: none !important; /* Prevents an empty physical space at the bottom */
+}
+
+/* 5. Scroll to Origin - Visible State (Triggered via JS) */
+#scroll-to-origin.visible {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: flex !important; /* Re-introduces it into the flex stack */
+}
+
+#scroll-to-origin.visible:hover {
+    transform: scale(1.1) !important;
+    /* Shifts gradient angle slightly on hover for a dynamic fluid effect */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%) !important; 
+}
