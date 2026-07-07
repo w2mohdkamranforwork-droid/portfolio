@@ -1977,3 +1977,8 @@ nav.nav-hidden {
     transform: translateY(-100%);
     opacity: 0;
 }
+nav {
+    position: fixed !important;
+    top: 0 !important;
+    z-index: 999999 !important;
+}

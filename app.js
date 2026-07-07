@@ -5,19 +5,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const nav = document.querySelector('nav');
     
-    // Safety check to ensure the navbar actually exists in the DOM
     if (!nav) {
-        console.error("Navbar element not found! Check if you have a <nav> tag.");
+        console.error("Navbar element not found!");
         return;
     }
 
-    // Force essential CSS styles via JS just in case your stylesheet is missing them
-    nav.style.position = "fixed";
+    // STYLING FIXES:
+    nav.style.position = "fixed"; // Keep it locked to the screen
     nav.style.top = "0";
     nav.style.left = "0";
     nav.style.width = "100%";
+    nav.style.zIndex = "999999"; // Ultra-high z-index to break through layout layers
     nav.style.transition = "transform 0.4s ease, opacity 0.4s ease";
-    nav.style.zIndex = "9999"; // Force it to the absolute top layer
 
     let hideTimeout;
 
@@ -28,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function hideNavbar() {
-        // Only hide if the user isn't currently hovering over the navbar
         if (!nav.matches(':hover')) {
             nav.style.transform = "translateY(-100%)";
             nav.style.opacity = "0";
@@ -37,12 +35,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function resetTimer() {
         clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(hideNavbar, 2000); // 2 seconds
+        hideTimeout = setTimeout(hideNavbar, 6000);
     }
 
-    // Listeners to wake the navbar up
+    // Show when mouse moves
     window.addEventListener('mousemove', (e) => {
-        // If the navbar is hidden OR mouse is near the top 60px of screen, reveal it
         if (nav.style.opacity === "0" || e.clientY <= 60) {
             showNavbar();
         } else {
@@ -50,19 +47,19 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Keep it visible if they hover over it
+    // Show when scrolling
+    window.addEventListener('scroll', showNavbar);
+
+    // Keep visible on hover
     nav.addEventListener('mouseenter', () => {
         clearTimeout(hideTimeout);
         nav.style.transform = "translateY(0)";
         nav.style.opacity = "1";
     });
 
-    // Start timer again when mouse leaves the navbar area
     nav.addEventListener('mouseleave', resetTimer);
 
-    // Initial countdown when page loads
     resetTimer();
-    
     initWebGLBackground();
     initMagneticComponents();
     initDecryptionMatrix();
