@@ -3,61 +3,86 @@
 // --- MULTI-OBJECT GRAPHICS ACCELERATION CORE & PERSISTENT DATA DRIVERS ---
 document.addEventListener("DOMContentLoaded", () => {
 
-    const nav = document.querySelector('nav');
+   const nav = document.querySelector('nav');
     
-    if (!nav) {
-        console.error("Navbar element not found!");
+if (!nav) {
+    console.error("Navbar element not found!");
+    return;
+}
+
+// STYLING FIXES (Updated for centering):
+nav.style.position = "fixed"; 
+nav.style.top = "0";
+nav.style.left = "50%"; // Move left edge to the middle of the screen
+nav.style.transform = "translateX(-50%)"; // Center it perfectly
+nav.style.width = "max-content"; // Fits content perfectly, or use a percentage like "90%" with a max-width
+nav.style.zIndex = "999999"; 
+// Notice we now transition 'transform' and 'opacity' smoothly while keeping horizontal centering intact
+nav.style.transition = "transform 0.4s ease, opacity 0.4s ease";
+
+let hideTimeout;
+
+function showNavbar() {
+    // Keeps the horizontal centering (-50%) while bringing it down into view (0)
+    nav.style.transform = "translate(-50%, 0)";
+    nav.style.opacity = "1";
+    
+    if (window.scrollY > 0) {
+        resetTimer();
+    } else {
+        clearTimeout(hideTimeout);
+    }
+}
+
+function hideNavbar() {
+    if (window.scrollY === 0) return;
+
+    if (!nav.matches(':hover')) {
+        // Keeps the horizontal centering (-50%) while sliding it out of view upward (-100%)
+        nav.style.transform = "translate(-50%, -100%)";
+        nav.style.opacity = "0";
+    }
+}
+
+function resetTimer() {
+    clearTimeout(hideTimeout);
+    if (window.scrollY > 0) {
+        hideTimeout = setTimeout(hideNavbar, 2000);
+    }
+}
+
+// Show when mouse moves
+window.addEventListener('mousemove', (e) => {
+    if (window.scrollY === 0) {
+        showNavbar();
         return;
     }
 
-    // STYLING FIXES:
-    nav.style.position = "fixed"; // Keep it locked to the screen
-    nav.style.top = "0";
-    nav.style.left = "0";
-    nav.style.width = "100%";
-    nav.style.zIndex = "999999"; // Ultra-high z-index to break through layout layers
-    nav.style.transition = "transform 0.4s ease, opacity 0.4s ease";
-
-    let hideTimeout;
-
-    function showNavbar() {
-        nav.style.transform = "translateY(0)";
-        nav.style.opacity = "1";
+    if (nav.style.opacity === "0" || e.clientY <= 60) {
+        showNavbar();
+    } else {
         resetTimer();
     }
+});
 
-    function hideNavbar() {
-        if (!nav.matches(':hover')) {
-            nav.style.transform = "translateY(-100%)";
-            nav.style.opacity = "0";
-        }
+// Show when scrolling
+window.addEventListener('scroll', showNavbar);
+
+// Keep visible on hover
+nav.addEventListener('mouseenter', () => {
+    clearTimeout(hideTimeout);
+    nav.style.transform = "translate(-50%, 0)";
+    nav.style.opacity = "1";
+});
+
+nav.addEventListener('mouseleave', () => {
+    if (window.scrollY > 0) {
+        resetTimer();
     }
+});
 
-    function resetTimer() {
-        clearTimeout(hideTimeout);
-        hideTimeout = setTimeout(hideNavbar, 2000);
-    }
-
-    // Show when mouse moves
-    window.addEventListener('mousemove', (e) => {
-        if (nav.style.opacity === "0" || e.clientY <= 60) {
-            showNavbar();
-        } else {
-            resetTimer();
-        }
-    });
-
-    // Show when scrolling
-    window.addEventListener('scroll', showNavbar);
-
-    // Keep visible on hover
-    nav.addEventListener('mouseenter', () => {
-        clearTimeout(hideTimeout);
-        nav.style.transform = "translateY(0)";
-        nav.style.opacity = "1";
-    });
-
-    nav.addEventListener('mouseleave', resetTimer);
+// Initial execution
+showNavbar();
 const scrollToOriginBtn = document.getElementById('scroll-to-origin');
 
     if (!scrollToOriginBtn) return;

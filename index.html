@@ -32,20 +32,21 @@
     <main>
         <header>
     <nav>
-        <div class="logo magnetic" data-strength="25"> MOHAMMAD KAMRAN &gt;</div>
-        <div class="links-wrapper">
-            <div class="links">
-                <a href="#about" class="magnetic" data-strength="15">About</a>
-                
-                <a href="#skills" class="magnetic" data-strength="15">Skills</a>
-                <a href="#project" class="magnetic" data-strength="15">Projects</a>
-                <a href="#reviews" class="magnetic" data-strength="15">Reviews</a>
-                <a href="#contact" class="magnetic" data-strength="15">Contact</a>
-            </div>
-            <!-- Interactive Call to Action Token -->
-            <a href="#contact" class="hire-me-btn magnetic" data-strength="20">Hire Me</a>
+    <div class="logo magnetic" data-strength="25">< MOHAMMAD KAMRAN /></div>
+    <div class="links-wrapper">
+        <div class="links">
+            <a href="#about" class="magnetic" data-strength="15">About</a>
+            <a href="#skills" class="magnetic" data-strength="15">Skills</a>
+            <a href="#project" class="magnetic" data-strength="15">Projects</a>
+            <a href="#reviews" class="magnetic" data-strength="15">Reviews</a>
+            <a href="#contact" class="magnetic" data-strength="15">Contact</a>
         </div>
-    </nav>
+        
+        
+
+        <a href="#contact" class="hire-me-btn magnetic" data-strength="20">Hire Me</a>
+    </div>
+</nav>
 </header>
 
         <section class="hero complex-tilt-card">
@@ -638,7 +639,9 @@ Looking for a collaborator, have a question, or want to hire me? Feel free to re
                             <!-- Action Selection Framework -->
                             <div class="form-group layer-z-mid routing-options" style="margin-top: 15px; display: flex; gap: 10px;">
                                 
-                                <button id="submit-whatsapp" type="button" onclick="alert('HTML is working!'); window.location.href='https://wa.me/919820360057';">
+                                <button id="submit-whatsapp" type="button" 
+    
+    style="background-color: #25D366; color: white; font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; padding: 12px 24px; border: none; border-radius: 50px; cursor: pointer; box-shadow: 0px 4px 6px rgba(0,0,0,0.1); transition: background-color 0.3s ease;">
     Send via WhatsApp
 </button>
                             </div>
@@ -648,14 +651,41 @@ Looking for a collaborator, have a question, or want to hire me? Feel free to re
             </div>
 
             <!-- CUSTOM SYSTEM TRANSMISSION MODAL -->
-            <div id="transmission-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
-                <div style="background: #111; border: 1px solid var(--accent, #00ffcc); padding: 30px; border-radius: 8px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 0 20px rgba(0,255,204,0.2);">
-                    <div style="font-size: 3rem; color: var(--accent, #00ffcc); margin-bottom: 15px;">✓</div>
-                    <h3 style="color: #fff; margin-bottom: 10px; font-family: monospace;">TRANSMISSION TAKE-OFF</h3>
-                    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">Parameters parsed and saved locallY. Launching system communications array next.</p>
-                    <button id="close-popup" style="background: var(--accent, #00ffcc); color: #000; border: none; padding: 10px 25px; font-weight: bold; cursor: pointer; border-radius: 4px; font-family: monospace;">SEND MESSAGE BY WhatsApp</button>
-                </div>
-            </div>
+            <style>
+    @keyframes fadeInOverlay {
+        from { opacity: 0; backdrop-filter: blur(0px); }
+        to { opacity: 1; backdrop-filter: blur(5px); }
+    }
+
+    @keyframes scaleUpBox {
+        from { transform: scale(0.8) translateY(30px); opacity: 0; }
+        to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+    
+    /* Subtle pulsing glowing effect for the button */
+    @keyframes pulseGlow {
+        0% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0.4); }
+        70% { box-shadow: 0 0 0 10px rgba(0, 255, 204, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(0, 255, 204, 0); }
+    }
+</style>
+
+<div id="transmission-popup" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 9999; justify-content: center; align-items: center; backdrop-filter: blur(5px); animation: fadeInOverlay 0.3s ease-out forwards;">
+    
+    <div style="background: #111; border: 1px solid var(--accent, #00ffcc); padding: 30px; border-radius: 8px; text-align: center; max-width: 450px; width: 90%; box-shadow: 0 0 20px rgba(0,255,204,0.2); animation: scaleUpBox 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;">
+        
+        <div style="font-size: 3rem; color: var(--accent, #00ffcc); margin-bottom: 15px; animation: scaleUpBox 0.5s ease-out 0.2s both;">✓</div>
+        
+        <h3 style="color: #fff; margin-bottom: 10px; font-family: monospace; tracking: 1px;">TRANSMISSION TAKE-OFF</h3>
+        <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 20px; line-height: 1.5;">Parameters parsed and saved locally. Continue By Route To WhatsApp</p>
+        
+        <button id="close-popup" style="background: var(--accent, #00ffcc); color: #000; border: none; padding: 12px 25px; font-weight: bold; cursor: pointer; border-radius: 4px; font-family: monospace; transition: all 0.2s ease; animation: pulseGlow 2s infinite;" 
+        onmouseover="this.style.transform='scale(1.05)'; this.style.filter='brightness(1.2)';" 
+        onmouseout="this.style.transform='scale(1)'; this.style.filter='none';">
+            SEND MESSAGE BY WhatsApp
+        </button>
+    </div>
+</div>
         </section>
 
         <!-- FOOTER ARCHITECTURE -->

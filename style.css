@@ -2084,3 +2084,95 @@ nav {
     /* Shifts gradient angle slightly on hover for a dynamic fluid effect */
     background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%) !important; 
 }
+
+
+/* --- FOOLPROOF LIGHT THEME OVERRIDES --- */
+
+/* 1. Main Background */
+body.light-theme, 
+body.light-theme main, 
+body.light-theme #canvas-container {
+    background-color: #f4f6f9 !important;
+    background: #f4f6f9 !important;
+    color: #1a1a24 !important;
+}
+
+/* 2. Portfolio Cards & Skill Grids */
+body.light-theme .card, 
+body.light-theme .skill-item, 
+body.light-theme .meta-node-card {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #1a1a24 !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+}
+
+/* 3. Global Text Overrides */
+body.light-theme h1, 
+body.light-theme h2, 
+body.light-theme h3, 
+body.light-theme .skill-title,
+body.light-theme .timeline-title {
+    color: #0f172a !important;
+}
+
+body.light-theme p, 
+body.light-theme .about-description, 
+body.light-theme .timeline-desc, 
+body.light-theme .review-text, 
+body.light-theme .footer-description,
+body.light-theme .meta-label {
+    color: #475569 !important;
+}
+
+/* 4. Navbar & Footer Background Tweaks */
+body.light-theme nav, 
+body.light-theme footer {
+    background-color: rgba(244, 246, 249, 0.95) !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+}
+body.light-theme nav a,
+body.light-theme .logo {
+    color: #1a1a24 !important;
+}
+
+/* 5. Theme Toggle Button Sizing */
+#theme-toggle {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: currentColor;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    margin: 0 5px;
+    border-radius: 50%;
+}
+
+/* ==========================================================================
+   HIGH-CONTRAST CYBER-LIGHT THEME OVERRIDES 
+   ========================================================================== */
+
+/* 1. Base Document Reset */
+/* ==========================================================================
+   HIGH-CONTRAST LIGHT THEME OPERATORS (WHITE, BLACK, PURPLE, BLUE)
+   ========================================================================== */
+
+/* 1. Primary Background Overrides (Forced White) */
+body.light-theme, 
+body.light-theme main {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important; /* Forced Black Text */
+}
+
+/* Re-maps the background lines cleanly so they become visible wireframes */
+body.light-theme #canvas-container {
+    opacity: 0.15 !important;
+    filter: invert(1) contrast(1.5) brightness(0.8);
+}
+
+/* 2. Portfolio Structural Containers & Skill Item Blocks */
+
