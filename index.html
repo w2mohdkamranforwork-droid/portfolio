@@ -436,120 +436,211 @@
     <button class="filter-btn magnetic" data-filter="javascript">JavaScript</button>
 </div>
 
+    <!-- Icon sprite for project cards -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <defs>
+            <symbol id="pi-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+            <symbol id="pi-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></symbol>
+            <symbol id="pi-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><path d="M12 15.5v2"/></symbol>
+            <symbol id="pi-code" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m10 10-2 2 2 2"/><path d="m14 14 2-2-2-2"/></symbol>
+            <symbol id="pi-cal" viewBox="0 0 24 24"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01M12 14h.01M16 14h.01M8 18h.01M12 18h.01"/></symbol>
+            <symbol id="pi-term" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="m7 9 3 3-3 3"/><path d="M13 15h4"/></symbol>
+            <symbol id="pi-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3a14 14 0 0 0 0 18 14 14 0 0 0 0-18"/><path d="M3 12h18"/></symbol>
+            <symbol id="pi-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01M6 18h.01M10 6h8M10 18h8"/></symbol>
+            <symbol id="pi-doc" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M9 13h6M9 17h6"/></symbol>
+            <symbol id="pi-arrow" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></symbol>
+            <symbol id="pi-cpu" viewBox="0 0 24 24"><rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2M15 20v2M2 15h2M2 9h2M20 15h2M20 9h2M9 2v2M9 20v2"/></symbol>
+            <symbol id="pi-braces" viewBox="0 0 24 24"><path d="M8 3H7a2 2 0 0 0-2 2v5a2 2 0 0 1-2 2 2 2 0 0 1 2 2v5c0 1.1.9 2 2 2h1"/><path d="M16 21h1a2 2 0 0 0 2-2v-5c0-1.1.9-2 2-2a2 2 0 0 1-2-2V5a2 2 0 0 0-2-2h-1"/></symbol>
+            <symbol id="pi-layers" viewBox="0 0 24 24"><path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+            <symbol id="pi-device" viewBox="0 0 24 24"><path d="M18 8V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h8"/><path d="M10 19v-4"/><path d="M7 19h5"/><rect width="6" height="10" x="16" y="12" rx="2"/></symbol>
+            <symbol id="pi-layout" viewBox="0 0 24 24"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></symbol>
+        </defs>
+    </svg>
+
     <div class="grid">
-        <div class="card complex-tilt-card" data-category="dotnet">
-            <div class="card-internal-wrapper">
-                <div class="project-header layer-z-mid">
-                    <span class="project-id">SYS-01</span>
-                    <span class="project-status production">Production Ready</span>
+        <!-- 01 -->
+        <article class="card complex-tilt-card pc" data-category="dotnet" data-accent="purple">
+            <div class="card-internal-wrapper pc-inner">
+                <div class="pc-body">
+                <div class="pc-top">
+                    <span class="pc-id">SYS-01</span>
+                    <span class="pc-status"><i class="pc-dot"></i>Production Ready</span>
                 </div>
-                <h3 class="layer-z-high">Advanced CRUD Solutions</h3>
-                <p class="layer-z-mid">Developed a high-performance web architecture featuring full product lifecycle management. Implemented a bulletproof, secure User Authentication &amp; Authorization protocol.</p>
-                <div class="project-metrics layer-z-mid">
-                    <div class="metric"><span class="label">Security Pipeline</span><span class="val">ASP.NET Core Identity / JWT</span></div>
-                    <div class="metric"><span class="label">Relational DBMS</span><span class="val">SQL Server Schema</span></div>
+                <div class="pc-head">
+                    <span class="pc-num" aria-hidden="true">01</span>
+                    <div class="pc-title">
+                        <h3>Advanced CRUD Solutions</h3>
+                        <span class="pc-rule" aria-hidden="true"></span>
+                    </div>
                 </div>
-                <div class="tag-row layer-z-low">
-                    <span class="tag">C#</span><span class="tag">ASP.NET Core 10</span><span class="tag">MVC</span><span class="tag">JWT</span><span class="tag">SQL Server</span>
+                <p class="pc-desc">Developed a high-performance web architecture featuring full product lifecycle management. Implemented a bulletproof, secure User Authentication &amp; Authorization protocol.</p>
+                <div class="pc-panel">
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-shield"/></svg><span class="pc-key">Security Pipeline</span><span class="pc-val">ASP.NET Core Identity / JWT</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-db"/></svg><span class="pc-key">Relational DBMS</span><span class="pc-val">SQL Server Schema</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-code"/></svg><span class="pc-key">Architecture</span><span class="pc-val">Scalable &amp; Secure</span></div>
                 </div>
-                <a href="projects/advanced-crud-solutions.html" class="project-link layer-z-high">Inspect Source <span>→</span></a>
+                <div class="pc-stack">
+                    <span class="pc-label">Technologies</span>
+                    <div class="pc-tags"><span class="pc-tag">C#</span><span class="pc-tag">ASP.NET Core 10</span><span class="pc-tag">MVC</span><span class="pc-tag">JWT</span><span class="pc-tag">SQL Server</span><span class="pc-tag">Identity</span></div>
+                </div>
+                </div>
+                <a href="projects/advanced-crud-solutions.html" class="pc-cta"><svg class="pc-i" aria-hidden="true"><use href="#pi-doc"/></svg><span>View in detail</span><svg class="pc-i pc-arrow" aria-hidden="true"><use href="#pi-arrow"/></svg></a>
             </div>
-        </div>
+        </article>
 
-        <div class="card complex-tilt-card" data-category="dotnet">
-            <div class="card-internal-wrapper">
-                <div class="project-header layer-z-mid">
-                    <span class="project-id">SYS-02</span>
-                    <span class="project-status development">Under Active Construction</span>
+        <!-- 02 -->
+        <article class="card complex-tilt-card pc" data-category="dotnet" data-accent="cyan">
+            <div class="card-internal-wrapper pc-inner">
+                <div class="pc-body">
+                <div class="pc-top">
+                    <span class="pc-id">SYS-02</span>
+                    <span class="pc-status"><i class="pc-dot"></i>Under Active Construction</span>
                 </div>
-                <h3 class="layer-z-high">Street Cart Vendor Finder</h3>
-                <p class="layer-z-mid">Architecting a dynamic real-time vendor tracking and mapping network. Leveraging spatial browser hardware metrics alongside structured relational backend ORM mapping.</p>
-                <div class="project-metrics layer-z-mid">
-                    <div class="metric"><span class="label">Mapping Interface</span><span class="val">HTML5 Geolocation / JS</span></div>
-                    <div class="metric"><span class="label">Database Access</span><span class="val">EF Core / LINQ</span></div>
+                <div class="pc-head">
+                    <span class="pc-num" aria-hidden="true">02</span>
+                    <div class="pc-title">
+                        <h3>Street Cart Vendor Finder</h3>
+                        <span class="pc-rule" aria-hidden="true"></span>
+                    </div>
                 </div>
-                <div class="tag-row layer-z-low">
-                    <span class="tag">C#</span><span class="tag">Web API</span><span class="tag">SQL Server</span><span class="tag">EF Core</span><span class="tag">Bootstrap</span>
+                <p class="pc-desc">Architecting a dynamic real-time vendor tracking and mapping network. Leveraging spatial browser hardware metrics alongside structured relational backend ORM mapping.</p>
+                <div class="pc-panel pc-arch">
+                    <div class="pc-flow">
+                        <div class="pc-node"><span class="pc-box"><svg class="pc-i" aria-hidden="true"><use href="#pi-globe"/></svg></span><span class="pc-cap">Browser Interface</span></div>
+                        <svg class="pc-i pc-link" aria-hidden="true"><use href="#pi-arrow"/></svg>
+                        <div class="pc-node"><span class="pc-box"><svg class="pc-i" aria-hidden="true"><use href="#pi-server"/></svg></span><span class="pc-cap">Mapping Engine</span></div>
+                        <svg class="pc-i pc-link" aria-hidden="true"><use href="#pi-arrow"/></svg>
+                        <div class="pc-node"><span class="pc-box"><svg class="pc-i" aria-hidden="true"><use href="#pi-db"/></svg></span><span class="pc-cap">ORM Database</span></div>
+                    </div>
                 </div>
-                <a href="projects/street-cart-vendor-finder.html" class="project-link layer-z-high">Inspect Source <span>→</span></a>
+                <div class="pc-stack">
+                    <span class="pc-label">Technologies</span>
+                    <div class="pc-tags"><span class="pc-tag">C#</span><span class="pc-tag">HTML5</span><span class="pc-tag">Geolocation / JS</span><span class="pc-tag">EF Core</span><span class="pc-tag">LINQ</span><span class="pc-tag">Web API</span><span class="pc-tag">SQL Server</span><span class="pc-tag">Bootstrap</span></div>
+                </div>
+                </div>
+                <a href="projects/street-cart-vendor-finder.html" class="pc-cta"><svg class="pc-i" aria-hidden="true"><use href="#pi-doc"/></svg><span>View in detail</span><svg class="pc-i pc-arrow" aria-hidden="true"><use href="#pi-arrow"/></svg></a>
             </div>
-        </div>
+        </article>
 
-        <div class="card complex-tilt-card" data-category="python">
-            <div class="card-internal-wrapper">
-                <div class="project-header layer-z-mid">
-                    <span class="project-id">PROJ-01</span>
-                    <span class="project-status production">Completed</span>
+        <!-- 03 -->
+        <article class="card complex-tilt-card pc" data-category="python" data-accent="purple">
+            <div class="card-internal-wrapper pc-inner">
+                <div class="pc-body">
+                <div class="pc-top">
+                    <span class="pc-id">PROJ-01</span>
+                    <span class="pc-status"><i class="pc-dot"></i>Completed</span>
                 </div>
-                <h3 class="layer-z-high">To-Do Web Application</h3>
-                <p class="layer-z-mid">Engineered a full-stack task management architecture utilizing Flask and SQLite. Built a seamless CRUD lifecycle with dynamic Jinja templates to handle real-time state changes.</p>
-                <div class="project-metrics layer-z-mid">
-                    <div class="metric"><span class="label">Backend Core</span><span class="val">Flask / SQLite</span></div>
-                    <div class="metric"><span class="label">Timeline</span><span class="val">Feb 2026 – Mar 2026</span></div>
+                <div class="pc-head">
+                    <span class="pc-num" aria-hidden="true">03</span>
+                    <div class="pc-title">
+                        <h3>To-Do Web Application</h3>
+                        <span class="pc-rule" aria-hidden="true"></span>
+                    </div>
                 </div>
-                <div class="tag-row layer-z-low">
-                    <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">SQLite</span><span class="tag">Jinja2</span><span class="tag">JavaScript</span>
+                <p class="pc-desc">Engineered a full-stack task management architecture utilizing Flask and SQLite. Built a seamless CRUD lifecycle with dynamic Jinja templates to handle real-time state changes.</p>
+                <div class="pc-panel">
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-code"/></svg><span class="pc-key">Backend Core</span><span class="pc-val">Flask / SQLite</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-cal"/></svg><span class="pc-key">Timeline</span><span class="pc-val">Feb 2026 – Mar 2026</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-term"/></svg><span class="pc-key">Platform</span><span class="pc-val">Web Application</span></div>
                 </div>
-                <a href="projects/todo-web-application.html" class="project-link layer-z-high">Inspect Source <span>→</span></a>
+                <div class="pc-stack">
+                    <span class="pc-label">Technologies</span>
+                    <div class="pc-tags"><span class="pc-tag">Python</span><span class="pc-tag">Flask</span><span class="pc-tag">SQLite</span><span class="pc-tag">Jinja2</span><span class="pc-tag">JavaScript</span><span class="pc-tag">HTML / CSS</span></div>
+                </div>
+                </div>
+                <a href="projects/todo-web-application.html" class="pc-cta"><svg class="pc-i" aria-hidden="true"><use href="#pi-doc"/></svg><span>View in detail</span><svg class="pc-i pc-arrow" aria-hidden="true"><use href="#pi-arrow"/></svg></a>
             </div>
-        </div>
+        </article>
 
-        <div class="card complex-tilt-card" data-category="python">
-            <div class="card-internal-wrapper">
-                <div class="project-header layer-z-mid">
-                    <span class="project-id">PROJ-02</span>
-                    <span class="project-status production">Completed</span>
+        <!-- 04 -->
+        <article class="card complex-tilt-card pc" data-category="python" data-accent="cyan">
+            <div class="card-internal-wrapper pc-inner">
+                <div class="pc-body">
+                <div class="pc-top">
+                    <span class="pc-id">PROJ-02</span>
+                    <span class="pc-status"><i class="pc-dot"></i>Completed</span>
                 </div>
-                <h3 class="layer-z-high">Python MCQ Generator</h3>
-                <p class="layer-z-mid">Architected an interactive AI tool utilizing the OpenAI API to ingest raw documents and transform them into structured evaluation datasets validated against strict JSON schemas.</p>
-                <div class="project-metrics layer-z-mid">
-                    <div class="metric"><span class="label">AI Pipeline</span><span class="val">OpenAI API</span></div>
-                    <div class="metric"><span class="label">Timeline</span><span class="val">Jan 2025 – Mar 2025</span></div>
+                <div class="pc-head">
+                    <span class="pc-num" aria-hidden="true">04</span>
+                    <div class="pc-title">
+                        <h3>Python MCQ Generator</h3>
+                        <span class="pc-rule" aria-hidden="true"></span>
+                    </div>
                 </div>
-                <div class="tag-row layer-z-low">
-                    <span class="tag">Python</span><span class="tag">OpenAI</span><span class="tag">JSON Parsing</span><span class="tag">API Integration</span>
+                <p class="pc-desc">Architected an interactive AI tool utilizing the OpenAI API to ingest raw documents and transform them into structured evaluation datasets validated against strict JSON schemas.</p>
+                <div class="pc-panel">
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-cpu"/></svg><span class="pc-key">AI Pipeline</span><span class="pc-val">OpenAI API</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-cal"/></svg><span class="pc-key">Timeline</span><span class="pc-val">Jan 2025 – Mar 2025</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-braces"/></svg><span class="pc-key">Output</span><span class="pc-val">Schema-validated JSON</span></div>
                 </div>
-                <a href="projects/python-mcq-generator.html" class="project-link layer-z-high">Inspect Source <span>→</span></a>
+                <div class="pc-stack">
+                    <span class="pc-label">Technologies</span>
+                    <div class="pc-tags"><span class="pc-tag">Python</span><span class="pc-tag">OpenAI</span><span class="pc-tag">JSON Parsing</span><span class="pc-tag">API Integration</span></div>
+                </div>
+                </div>
+                <a href="projects/python-mcq-generator.html" class="pc-cta"><svg class="pc-i" aria-hidden="true"><use href="#pi-doc"/></svg><span>View in detail</span><svg class="pc-i pc-arrow" aria-hidden="true"><use href="#pi-arrow"/></svg></a>
             </div>
-        </div>
+        </article>
 
-        <div class="card complex-tilt-card" data-category="javascript">
-            <div class="card-internal-wrapper">
-                <div class="project-header layer-z-mid">
-                    <span class="project-id">SYS-03</span>
-                    <span class="project-status production">Production Ready</span>
+        <!-- 05 -->
+        <article class="card complex-tilt-card pc" data-category="javascript" data-accent="purple">
+            <div class="card-internal-wrapper pc-inner">
+                <div class="pc-body">
+                <div class="pc-top">
+                    <span class="pc-id">SYS-03</span>
+                    <span class="pc-status"><i class="pc-dot"></i>Production Ready</span>
                 </div>
-                <h3 class="layer-z-high">AI-Integrated E-Commerce</h3>
-                <p class="layer-z-mid">Architected a responsive, next-gen full-stack commercial platform. Engineered a fluid user interface designed for flawless cross-device performance spanning mobile, tablet, and desktop viewports.</p>
-                <div class="project-metrics layer-z-mid">
-                    <div class="metric"><span class="label">UI Component Engine</span><span class="val">Next.js Framework</span></div>
-                    <div class="metric"><span class="label">NoSQL Data Cache</span><span class="val">MongoDB Clusters</span></div>
+                <div class="pc-head">
+                    <span class="pc-num" aria-hidden="true">05</span>
+                    <div class="pc-title">
+                        <h3>AI-Integrated E-Commerce</h3>
+                        <span class="pc-rule" aria-hidden="true"></span>
+                    </div>
                 </div>
-                <div class="tag-row layer-z-low">
-                    <span class="tag">Next.js</span><span class="tag">React.js</span><span class="tag">JavaScript</span><span class="tag">MongoDB</span>
+                <p class="pc-desc">Architected a responsive, next-gen full-stack commercial platform. Engineered a fluid user interface designed for flawless cross-device performance spanning mobile, tablet, and desktop viewports.</p>
+                <div class="pc-panel">
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-layers"/></svg><span class="pc-key">UI Component Engine</span><span class="pc-val">Next.js Framework</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-db"/></svg><span class="pc-key">NoSQL Data Cache</span><span class="pc-val">MongoDB Clusters</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-device"/></svg><span class="pc-key">Viewports</span><span class="pc-val">Mobile / Tablet / Desktop</span></div>
                 </div>
-                <a href="projects/ai-integrated-ecommerce.html" class="project-link layer-z-high">Inspect Source <span>→</span></a>
+                <div class="pc-stack">
+                    <span class="pc-label">Technologies</span>
+                    <div class="pc-tags"><span class="pc-tag">Next.js</span><span class="pc-tag">React.js</span><span class="pc-tag">JavaScript</span><span class="pc-tag">MongoDB</span></div>
+                </div>
+                </div>
+                <a href="projects/ai-integrated-ecommerce.html" class="pc-cta"><svg class="pc-i" aria-hidden="true"><use href="#pi-doc"/></svg><span>View in detail</span><svg class="pc-i pc-arrow" aria-hidden="true"><use href="#pi-arrow"/></svg></a>
             </div>
-        </div>
+        </article>
 
-        <div class="card complex-tilt-card" data-category="javascript">
-            <div class="card-internal-wrapper">
-                <div class="project-header layer-z-mid">
-                    <span class="project-id">SYS-04</span>
-                    <span class="project-status production">Completed Deployment</span>
+        <!-- 06 -->
+        <article class="card complex-tilt-card pc" data-category="javascript" data-accent="cyan">
+            <div class="card-internal-wrapper pc-inner">
+                <div class="pc-body">
+                <div class="pc-top">
+                    <span class="pc-id">SYS-04</span>
+                    <span class="pc-status"><i class="pc-dot"></i>Completed Deployment</span>
                 </div>
-                <h3 class="layer-z-high">Suicidal Behaviour Prediction</h3>
-                <p class="layer-z-mid">Developed a full-stack Capstone web application engineered to parse high-velocity user responses and session metadata parameters to intelligently categorize risk factors.</p>
-                <div class="project-metrics layer-z-mid">
-                    <div class="metric"><span class="label">Risk Engine DB</span><span class="val">MongoDB Documents</span></div>
-                    <div class="metric"><span class="label">Adaptive Layout</span><span class="val">Bootstrap Responsive</span></div>
+                <div class="pc-head">
+                    <span class="pc-num" aria-hidden="true">06</span>
+                    <div class="pc-title">
+                        <h3>Suicidal Behaviour Prediction</h3>
+                        <span class="pc-rule" aria-hidden="true"></span>
+                    </div>
                 </div>
-                <div class="tag-row layer-z-low">
-                    <span class="tag">HTML5</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span><span class="tag">MongoDB</span>
+                <p class="pc-desc">Developed a full-stack Capstone web application engineered to parse high-velocity user responses and session metadata parameters to intelligently categorize risk factors.</p>
+                <div class="pc-panel">
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-db"/></svg><span class="pc-key">Risk Engine DB</span><span class="pc-val">MongoDB Documents</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-layout"/></svg><span class="pc-key">Adaptive Layout</span><span class="pc-val">Bootstrap Responsive</span></div>
+                    <div class="pc-row"><svg class="pc-i" aria-hidden="true"><use href="#pi-term"/></svg><span class="pc-key">Platform</span><span class="pc-val">Capstone Web App</span></div>
                 </div>
-                <a href="projects/suicidal-behaviour-prediction.html" class="project-link layer-z-high">Inspect Source <span>→</span></a>
+                <div class="pc-stack">
+                    <span class="pc-label">Technologies</span>
+                    <div class="pc-tags"><span class="pc-tag">HTML5</span><span class="pc-tag">JavaScript</span><span class="pc-tag">Bootstrap</span><span class="pc-tag">MongoDB</span></div>
+                </div>
+                </div>
+                <a href="projects/suicidal-behaviour-prediction.html" class="pc-cta"><svg class="pc-i" aria-hidden="true"><use href="#pi-doc"/></svg><span>View in detail</span><svg class="pc-i pc-arrow" aria-hidden="true"><use href="#pi-arrow"/></svg></a>
             </div>
-        </div>
+        </article>
     </div>
 </section>
 
