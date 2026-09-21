@@ -485,14 +485,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. ONLY target cards inside the #project section grid
     const projectCards = document.querySelectorAll("#project .complex-tilt-card");
     const projectGrid = document.querySelector("#project .grid");
-    const filterValues = Array.from(filterButtons).map(btn => btn.getAttribute("data-filter"));
 
     const CARD_TRANSITION_MS = 450; // matches the .complex-tilt-card CSS transition duration
     const CARD_STAGGER_MS = 90;
 
     // Lock the grid's height to its tallest ("all") state so compacting cards
     // for a category never shrinks the section itself — that used to shift
-    // everything below it (the Reviews section) on every autoplay tick. The
+    // everything below it (the Reviews section) on every filter change. The
     // reserved space sits *below* the compacted cards (see align-content:
     // start in style.css), never between them.
     function lockGridHeight() {
@@ -557,44 +556,12 @@ document.addEventListener("DOMContentLoaded", () => {
         resizeDebounce = setTimeout(lockGridHeight, 200);
     });
 
-    // 3. Autoplay: automatically cycle through every category every 2 seconds
-    const AUTOPLAY_INTERVAL_MS = 2000;
-    let currentFilterIndex = 0;
-    let autoplayTimer = null;
-
-    function startAutoplay() {
-        autoplayTimer = setInterval(() => {
-            currentFilterIndex = (currentFilterIndex + 1) % filterValues.length;
-            applyFilter(filterValues[currentFilterIndex]);
-        }, AUTOPLAY_INTERVAL_MS);
-    }
-
-    function restartAutoplay() {
-        clearInterval(autoplayTimer);
-        startAutoplay();
-    }
-
-    function pauseAutoplay() {
-        clearInterval(autoplayTimer);
-        autoplayTimer = null;
-    }
-
-    filterButtons.forEach((button, index) => {
+    // 3. Categories change only when the visitor picks one — no autoplay.
+    filterButtons.forEach(button => {
         button.addEventListener("click", () => {
-            currentFilterIndex = index;
             applyFilter(button.getAttribute("data-filter"));
-            restartAutoplay();
         });
     });
-
-    // Pause the autoplay cycle while the visitor is looking at a card, so it
-    // doesn't fade out from under their cursor mid-read. Resumes on mouseleave.
-    if (projectGrid) {
-        projectGrid.addEventListener("mouseenter", pauseAutoplay);
-        projectGrid.addEventListener("mouseleave", startAutoplay);
-    }
-
-    startAutoplay();
 });
 
 document.addEventListener("DOMContentLoaded", () => {
