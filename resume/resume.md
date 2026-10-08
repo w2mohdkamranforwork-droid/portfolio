@@ -1,7 +1,7 @@
 # Mohammad Kamran Ansari
 Full-Stack .NET Developer & API Architect
 Bandra, Mumbai, India
-Email: w2mohdkamranforwork@gmail.com | Phone/WhatsApp: +91 98203 60057
+Email: w2mkforwork@gmail.com | Phone/WhatsApp: +91 98203 60057
 LinkedIn: linkedin.com/in/mohammad-kamran-28958b378
 Availability: Open to full-time roles and contract work.
 

@@ -313,7 +313,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const closePopupBtn = document.getElementById("close-popup");
 
     // Primary Target Parameter Endpoints from Identity Profile
-    const developerEmail = "w2mohdkamranforwork@gmail.com";
+    const developerEmail = "w2mkforwork@gmail.com";
     const developerPhone = "919820360057"; // Format with clear country calling protocol (no spaces, no + symbols)[cite: 3]
 
     // Form inputs validator and details extractor

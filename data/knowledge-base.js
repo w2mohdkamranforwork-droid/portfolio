@@ -114,7 +114,7 @@ window.PORTFOLIO_KNOWLEDGE_BASE = [
         id: "contact",
         category: "Contact",
         keywords: ["contact", "email", "phone", "hire", "reach", "location", "linkedin", "whatsapp"],
-        text: "You can reach Mohammad at w2mohdkamranforwork@gmail.com, by phone/WhatsApp at +91 98203 60057, or via LinkedIn (linkedin.com/in/mohammad-kamran-28958b378). He is based in Bandra, Mumbai, India and is available for full-time roles and contract work — the portfolio's contact form and 'Give Feedback' section are also good ways to get in touch."
+        text: "You can reach Mohammad at w2mkforwork@gmail.com, by phone/WhatsApp at +91 98203 60057, or via LinkedIn (linkedin.com/in/mohammad-kamran-28958b378). He is based in Bandra, Mumbai, India and is available for full-time roles and contract work — the portfolio's contact form and 'Give Feedback' section are also good ways to get in touch."
     },
     {
         id: "reviews",
