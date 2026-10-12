@@ -3116,3 +3116,40 @@ body.light-theme #canvas-container {
     display: inline-block;
     white-space: nowrap;
 }
+
+/* Hero vertical rhythm: keep badge, heading, copy and CTAs inside the first
+   viewport below the fixed navbar (main already has 80px top padding). */
+.hero {
+    min-height: calc(100vh - 80px);
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+    justify-content: center;
+}
+.hero .card-internal-wrapper {
+    padding: 0;
+    height: auto;
+    align-items: center;
+}
+.hero .badge {
+    width: fit-content;
+    margin-bottom: 1.5rem;
+}
+.hero h1 {
+    font-size: clamp(2.2rem, 5vw, 3.75rem);
+    margin-bottom: 1.5rem;
+}
+.hero p {
+    font-size: 1.15rem;
+    margin: 0 auto;
+}
+.hero-actions {
+    justify-content: center;
+    margin-top: 2rem;
+}
+@media (max-width: 768px) {
+    /* Navbar stacks into ~180px on phones; clear it before the badge. */
+    .hero {
+        padding-top: 7.5rem;
+        min-height: auto;
+    }
+}
