@@ -2507,39 +2507,111 @@ nav {
     transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease !important;
 }
 
-/* 3. WhatsApp Button Styling (Kept as standard green) */
-.whatsapp-btn {
-    background-color: #25D366 !important;
-    color: white !important;
-}
-.whatsapp-btn:hover {
-    transform: scale(1.1) !important;
-    background-color: #20ba5a !important;
+/* 3. WhatsApp + Scroll-to-top — same expanding terminal pill as the chat
+   launcher (chatbot.css), a size smaller, each in its own accent. The layout
+   box stays a 42px circle; the pill behind it grows *leftwards* to reveal the
+   label, so the centered stack never shifts sideways. */
+.floating-btn-group .fab-btn,
+.floating-btn-group #scroll-to-origin { /* id selector: outranks the older #scroll-to-origin rules */
+    position: relative !important;
+    inset: auto !important; /* the older fixed-position rules set bottom/right offsets */
+    width: 42px !important;
+    height: 42px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    overflow: visible;
+    color: var(--fab-accent) !important;
+    text-decoration: none;
 }
 
-/* 4. Scroll to Origin - Hidden State (Blue & Purple Gradient) */
+.whatsapp-btn {
+    --fab-accent: #25D366;
+    --fab-glow: 37, 211, 102;
+}
+
 #scroll-to-origin {
-    /* Vivid Blue to Royal Purple Gradient */
-    background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%) !important; 
-    color: #ffffff !important; /* White arrow to stand out on the gradient */
-    
-    /* Safely hidden by default at the very top */
+    --fab-accent: #8b7bff;
+    --fab-glow: 106, 17, 203;
+}
+
+.fab-pill {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 42px;
+    height: 42px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    overflow: hidden;
+    background: #05070a;
+    border: 1px solid var(--fab-accent);
+    border-radius: 21px;
+    box-shadow: 0 0 10px rgba(var(--fab-glow), 0.3), 0 4px 14px rgba(0, 0, 0, 0.3);
+    transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+}
+
+/* Scroll-to-top keeps its blue→purple identity as a gradient border. */
+#scroll-to-origin .fab-pill {
+    border-color: transparent;
+    background:
+        linear-gradient(#05070a, #05070a) padding-box,
+        linear-gradient(135deg, #2575fc 0%, #6a11cb 100%) border-box;
+}
+
+.fab-pill-text {
+    flex-shrink: 0;
+    margin-right: 44px; /* clears the icon */
+    white-space: nowrap;
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--fab-accent);
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.25s ease, transform 0.35s ease;
+}
+
+.fab-icon {
+    position: relative; /* paints above the pill */
+}
+
+.fab-btn:hover .fab-pill,
+.fab-btn:focus-visible .fab-pill {
+    box-shadow: 0 0 18px rgba(var(--fab-glow), 0.5), 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.fab-btn.expanded .fab-pill {
+    /* Measured from the label in app.js; 180px is a safe fallback. */
+    width: var(--fab-pill-w, 180px);
+}
+
+.fab-btn.expanded .fab-pill-text {
+    opacity: 1;
+    transform: translateX(0);
+    transition-delay: 0.15s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fab-pill,
+    .fab-pill-text {
+        transition: none;
+    }
+}
+
+/* 4. Scroll to Origin - hidden until scrolled (toggled via JS) */
+#scroll-to-origin {
     opacity: 0 !important;
     visibility: hidden !important;
     display: none !important; /* Prevents an empty physical space at the bottom */
 }
 
-/* 5. Scroll to Origin - Visible State (Triggered via JS) */
 #scroll-to-origin.visible {
     opacity: 1 !important;
     visibility: visible !important;
     display: flex !important; /* Re-introduces it into the flex stack */
-}
-
-#scroll-to-origin.visible:hover {
-    transform: scale(1.1) !important;
-    /* Shifts gradient angle slightly on hover for a dynamic fluid effect */
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%) !important; 
 }
 
 
@@ -3037,3 +3109,10 @@ body.light-theme #canvas-container {
 :is(body.light-theme, html[data-theme="light"]) #project .pc-label::after { background: rgba(15, 23, 42, 0.1); }
 :is(body.light-theme, html[data-theme="light"]) #project .pc-cta:hover,
 :is(body.light-theme, html[data-theme="light"]) #project .pc-cta:focus-visible { color: var(--pc-soft); }
+
+/* Decrypt/scramble headings (app.js initDecryptionMatrix): words are pinned to
+   their final width while scrambling so the heading never re-wraps. */
+.decrypt-word {
+    display: inline-block;
+    white-space: nowrap;
+}

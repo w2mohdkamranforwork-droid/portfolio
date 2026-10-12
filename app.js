@@ -245,27 +245,63 @@ function initMagneticComponents() {
 function initDecryptionMatrix() {
     const decrypters = document.querySelectorAll('[data-decrypt]');
     const glyphLibrary = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_@#$%-+=*{}/";
+    const MAX_DURATION_MS = 2400; // long headings reveal faster instead of dragging on
+
+    // Each word becomes a nowrap inline-block whose width is pinned to the real
+    // word while it scrambles, so wider/narrower random glyphs can never
+    // re-wrap the heading and make the lines jump around.
+    decrypters.forEach(node => {
+        const text = node.textContent.replace(/\s+/g, " ").trim();
+        node.dataset.decryptText = text;
+        node.textContent = "";
+        text.split(" ").forEach((word, i) => {
+            if (i > 0) node.appendChild(document.createTextNode(" "));
+            const span = document.createElement("span");
+            span.className = "decrypt-word";
+            span.textContent = word;
+            node.appendChild(span);
+        });
+    });
 
     const triggerDecryption = (target) => {
         if (target.classList.contains('decrypting')) return;
         target.classList.add('decrypting');
 
-        const originalString = target.innerText;
+        const words = Array.from(target.querySelectorAll('.decrypt-word'));
+        const originals = words.map(w => w.textContent);
+
+        // Measure at trigger time (text is final here) so it stays correct after resizes.
+        words.forEach(w => { w.style.width = ""; });
+        const widths = words.map(w => w.getBoundingClientRect().width);
+        words.forEach((w, i) => { w.style.width = widths[i] + "px"; });
+
+        const totalChars = originals.join("").length;
+        const step = Math.max(1 / 3, totalChars / (MAX_DURATION_MS / 25));
         let iterationCounter = 0;
-        
+
+        const finish = () => {
+            words.forEach((w, i) => {
+                w.textContent = originals[i];
+                w.style.width = "";
+            });
+            target.classList.remove('decrypting');
+        };
+
         const decryptionInterval = setInterval(() => {
-            target.innerText = originalString.split("").map((char, index) => {
-                if (char === " " || char === "&") return char;
-                if (index < iterationCounter) return originalString[index];
-                return glyphLibrary[Math.floor(Math.random() * glyphLibrary.length)];
-            }).join("");
-            
-            if (iterationCounter >= originalString.length) {
+            let index = 0;
+            words.forEach((w, i) => {
+                w.textContent = originals[i].split("").map(char => {
+                    const revealed = index++ < iterationCounter;
+                    if (revealed || char === "&" || char === "|") return char;
+                    return glyphLibrary[Math.floor(Math.random() * glyphLibrary.length)];
+                }).join("");
+            });
+
+            if (iterationCounter >= totalChars) {
                 clearInterval(decryptionInterval);
-                target.classList.remove('decrypting');
-                target.innerText = originalString;
+                finish();
             }
-            iterationCounter += 1 / 3;
+            iterationCounter += step;
         }, 25);
     };
 
@@ -276,10 +312,21 @@ function initDecryptionMatrix() {
         });
     }, { threshold: 0.1 });
 
-    decrypters.forEach(node => {
-        intersectionObserver.observe(node);
-        node.addEventListener('mouseenter', () => triggerDecryption(node));
-    });
+    const startObserving = () => {
+        decrypters.forEach(node => {
+            intersectionObserver.observe(node);
+            node.addEventListener('mouseenter', () => triggerDecryption(node));
+        });
+    };
+
+    // On a fresh load the preloader covers the hero, so the heading would
+    // finish scrambling unseen. Wait until the loader starts fading out.
+    const loaderActive = document.getElementById('sys-loader') && !document.body.classList.contains('sys-ready');
+    if (loaderActive) {
+        document.addEventListener('sys-ready', () => setTimeout(startObserving, 200), { once: true });
+    } else {
+        startObserving();
+    }
 }
 
 // HARDWARE ACCELERATED 3D PARALLAX FOR VIEW CARDS
@@ -484,26 +531,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const filterButtons = document.querySelectorAll(".filter-btn");
     // 2. ONLY target cards inside the #project section grid
     const projectCards = document.querySelectorAll("#project .complex-tilt-card");
-    const projectGrid = document.querySelector("#project .grid");
 
     const CARD_TRANSITION_MS = 450; // matches the .complex-tilt-card CSS transition duration
     const CARD_STAGGER_MS = 90;
-
-    // Lock the grid's height to its tallest ("all") state so compacting cards
-    // for a category never shrinks the section itself — that used to shift
-    // everything below it (the Reviews section) on every filter change. The
-    // reserved space sits *below* the compacted cards (see align-content:
-    // start in style.css), never between them.
-    function lockGridHeight() {
-        if (!projectGrid) return;
-        const prevTransition = projectGrid.style.transition;
-        projectGrid.style.transition = "none";
-        projectGrid.style.minHeight = "0px";
-        const naturalHeight = projectGrid.scrollHeight;
-        projectGrid.style.minHeight = naturalHeight + "px";
-        void projectGrid.offsetHeight; // force reflow before re-enabling the transition
-        projectGrid.style.transition = prevTransition;
-    }
 
     // Cards that don't match the active category fade out then leave the grid
     // flow (display:none) so the remaining cards compact to the top — no
@@ -545,16 +575,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
-
-    lockGridHeight();
-
-    // Recalibrate on resize (debounced) since the number of grid columns —
-    // and therefore the tallest possible height — depends on viewport width.
-    let resizeDebounce = null;
-    window.addEventListener("resize", () => {
-        clearTimeout(resizeDebounce);
-        resizeDebounce = setTimeout(lockGridHeight, 200);
-    });
 
     // 3. Categories change only when the visitor picks one — no autoplay.
     filterButtons.forEach(button => {
@@ -614,9 +634,8 @@ document.addEventListener("DOMContentLoaded", () => {
             
             setTimeout(() => {
                 document.body.classList.add("sys-ready");
-                
-                // If you have a global text scramble decryption method, trigger it here:
-                // if (window.initializeDecrypt) window.initializeDecrypt();
+                // Lets effects hidden behind the loader (e.g. the hero decrypt) start now.
+                document.dispatchEvent(new Event("sys-ready"));
             }, 350);
         } else {
             loadBar.style.width = `${currentProgress}%`;
@@ -837,3 +856,30 @@ document.addEventListener("DOMContentLoaded", () => {
     observer.observe(track, { childList: true });
 });
 
+// WhatsApp + scroll-to-top launchers: circle -> labelled pill (mirrors the
+// chat launcher in chatbot.js).
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".floating-btn-group .fab-btn").forEach(btn => {
+        const label = btn.querySelector(".fab-pill-text");
+        if (!label) return;
+
+        const setExpanded = (expanded) => {
+            if (expanded) {
+                // text + 16px left pad + the 44px icon slot + 2px of border
+                btn.style.setProperty("--fab-pill-w", `${Math.ceil(label.offsetWidth) + 62}px`);
+            }
+            btn.classList.toggle("expanded", expanded);
+        };
+
+        btn.addEventListener("mouseenter", () => setExpanded(true));
+        btn.addEventListener("mouseleave", () => setExpanded(false));
+        btn.addEventListener("focus", () => { if (btn.matches(":focus-visible")) setExpanded(true); });
+        btn.addEventListener("blur", () => setExpanded(false));
+
+        // WhatsApp peeks just after the chat launcher does, then tucks away.
+        if (btn.classList.contains("whatsapp-btn")) {
+            setTimeout(() => setExpanded(true), 1600);
+            setTimeout(() => { if (!btn.matches(":hover, :focus-visible")) setExpanded(false); }, 6500);
+        }
+    });
+});
